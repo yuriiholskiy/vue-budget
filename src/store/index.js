@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { getFromStorage, uuid } from '@/utils';
+import { setToStorage, getFromStorage, uuid } from '@/utils';
 
 const defaultCosts = [
 	{
@@ -34,6 +34,7 @@ export default new Vuex.Store({
 			title: '',
 			cost: 0
 		},
+		editId: null
 	},
 	mutations: {
 		setBudget(state, budget) {
@@ -44,24 +45,40 @@ export default new Vuex.Store({
 		},
 		setFormValues(state, values) {
 			state.formValues = values;
+		},
+		setEditId(state, id) {
+			state.editId = id;
 		}
 	},
 	actions: {
 		setBudget({commit}, payload) {
 			commit('setBudget', payload);
 		},
-		setCosts({commit}, payload) {
+		setCosts({commit, dispatch, getters}, payload) {
 			commit('setCosts', payload);
+			dispatch('setFormValues', {
+				title: '',
+				cost: 0
+			});
+			if(getters.isEdit) {
+				commit('setEditId', null);
+			}
+			setToStorage('costs', JSON.stringify(payload));
 		},
 		setFormValues({commit}, payload) {
 			commit('setFormValues', payload);
 		},
 		editCost({commit}, payload) {
-			commit('setEditedCost', payload);
-		}
+			commit('setEditId', payload.id);
+			commit('setFormValues', {
+				title: payload.title,
+				cost: payload.cost
+			});
+		},
 	},
 	getters: {
 		totalSpended: state => state.costs.reduce((total, cost) => total + cost.cost, 0),
-		isBudgetSet: state => !!state.budget
+		isBudgetSet: state => !!state.budget,
+		isEdit: state => !!state.editId
 	}
 });

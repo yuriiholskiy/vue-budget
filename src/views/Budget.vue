@@ -5,7 +5,7 @@
 						@click="formHidden = !formHidden">
 			<i class="material-icons">add</i>
 		</button>
-		<app-budget-form v-if="formHidden" @add-cost="addCost" class="mt-2" />
+		<app-budget-form v-if="formHidden" @add-cost="addCost" @edit-cost="editCost" class="mt-2" />
 		<p class="fz2">
 			Your full budget is: <strong>{{ budget }}&#8372;</strong>
 		</p>
@@ -24,12 +24,12 @@ import AppBudgetForm from '@/components/AppBudgetForm';
  
 import { mapState, mapGetters } from 'vuex';
 
-import { uuid, setToStorage, removeFromStorage } from '@/utils';
+import { uuid, removeFromStorage } from '@/utils';
 export default {
 	name: 'budget',
 	data() {
 		return {
-			formHidden: false
+			formHidden: true
 		}
 	},
 	components: {
@@ -37,7 +37,7 @@ export default {
 		AppBudgetForm
 	},
 	computed: {
-		...mapState(['budget', 'costs', 'formValues']),
+		...mapState(['budget', 'costs', 'formValues', 'editId']),
 		...mapGetters(['totalSpended']),
 		budgetOnThisTime() {
 			return this.budget - this.totalSpended;
@@ -52,7 +52,7 @@ export default {
 			if(setNewBudget) {
 				removeFromStorage('budget');
 				this.$store.dispatch('setBudget', 0);
-				this.$router.push({name: 'home'});
+				this.$router.push({ name: 'home' });
 			}
 		},
 		addCost() {
@@ -69,13 +69,16 @@ export default {
 			const newCosts = [cost, ...this.costs];
 			
 			this.$store.dispatch('setCosts', newCosts);
-
-			setToStorage('costs', JSON.stringify(newCosts));
-
-			this.$store.dispatch('setFormValues', {
-				title: '',
-				val: 0
+		},
+		editCost() {
+			const newCosts = this.costs.map(c => {
+				if(c.id === this.editId) {
+					return {...c, title: this.formValues.title, cost: this.formValues.cost}
+				}
+				return c;
 			});
+
+			this.$store.dispatch('setCosts', newCosts);
 		}
 	}
 }

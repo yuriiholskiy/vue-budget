@@ -1,5 +1,5 @@
 <template>
-	<form @submit.prevent="$emit('add-cost')">
+	<form @submit.prevent="handleSubmit">
 		<div class="input-field">
 			<input 	id="Title" 
 							type="text" 
@@ -15,16 +15,18 @@
 							placeholder="Cost"
 							min="0">
 		</div>
-		<button class="btn" type="submit">Add cost</button>
+		<button v-if="isEdit" class="btn" type="submit">Edit cost</button>
+		<button v-else class="btn" type="submit">Add cost</button>
 	</form>
 </template>
 
 <script>
-import { mapState } from 'vuex';	
+import { mapState, mapGetters } from 'vuex';	
 export default {
 	name: 'app-budget-form',
 	computed: {
 		...mapState(['formValues']),
+		...mapGetters(['isEdit']),
 		values: {
 			get() {
 				return this.formValues;
@@ -34,5 +36,10 @@ export default {
 			}
 		}
 	},
+	methods: {
+		handleSubmit() {
+			this.isEdit ? this.$emit('edit-cost') : this.$emit('add-cost');
+		}
+	}
 }
 </script>
