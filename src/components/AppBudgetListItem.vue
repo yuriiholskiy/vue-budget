@@ -8,7 +8,7 @@
 			</span>
 		</div>
 		<div class="app-budget-icons">
-			<i class="material-icons cp px-1 cp" @click="editCost(cost.id)">create</i>
+			<i class="material-icons cp px-1 cp" @click="editCost">create</i>
 			<i class="material-icons cp px-1 cp" @click="deleteCost(cost.id)">delete</i>
 		</div>
 	</li>
@@ -32,8 +32,8 @@ export default {
 		...mapState(['costs'])
 	},
 	methods: {
-		editCost(id) {
-			console.log(id);
+		editCost() {
+			this.$store.dispatch('editCost', this.cost);
 		},
 		deleteCost(id) {
 			const newCosts = this.costs.filter(cost => cost.id !== id);

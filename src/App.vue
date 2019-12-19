@@ -28,6 +28,9 @@ export default {
 .mt-1 {
 	margin-top: 1rem;
 }
+.mt-2 {
+	margin-top: 2rem;
+}
 .mb-1 {
 	margin-bottom: 1rem;
 }
@@ -93,7 +96,11 @@ export default {
 	top: 5rem;
 	right: 5rem;
 }
-
+.absolute-top-left {
+	position: absolute;
+	top: 5rem;
+	left: 7rem;
+}
 .app-budget {
 	background-color: var(--main-bg);
 	color: var(--font-color);

@@ -29,14 +29,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		budget: getFromStorage('budget') ? +getFromStorage('budget') : 0,
-		costs: getFromStorage('costs') ? JSON.parse(getFromStorage('costs')): defaultCosts
+		costs: getFromStorage('costs') ? JSON.parse(getFromStorage('costs')): defaultCosts,
+		formValues: {
+			title: '',
+			cost: 0
+		},
 	},
 	mutations: {
-		setBudget(state, payload) {
-			state.budget = payload;
+		setBudget(state, budget) {
+			state.budget = budget;
 		},
-		setCosts(state, payload) {
-			state.costs = payload;
+		setCosts(state, costs) {
+			state.costs = costs;
+		},
+		setFormValues(state, values) {
+			state.formValues = values;
 		}
 	},
 	actions: {
@@ -45,6 +52,12 @@ export default new Vuex.Store({
 		},
 		setCosts({commit}, payload) {
 			commit('setCosts', payload);
+		},
+		setFormValues({commit}, payload) {
+			commit('setFormValues', payload);
+		},
+		editCost({commit}, payload) {
+			commit('setEditedCost', payload);
 		}
 	},
 	getters: {

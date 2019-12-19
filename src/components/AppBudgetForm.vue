@@ -3,41 +3,36 @@
 		<div class="input-field">
 			<input 	id="Title" 
 							type="text" 
-							ref="title"
-							:value="value.title"
-							@input="emiting" 
+							v-model="values.title"
 							class="validate" 
 							placeholder="Title">
 		</div>
 		<div class="input-field">
 			<input 	id="cost"
-							ref="cost" 
 							type="number" 
-							:value="value.cost"
-							@input="emiting" 
+							v-model="values.cost"
 							class="validate" 
-							placeholder="Cost">
+							placeholder="Cost"
+							min="0">
 		</div>
 		<button class="btn" type="submit">Add cost</button>
 	</form>
 </template>
 
 <script>
+import { mapState } from 'vuex';	
 export default {
 	name: 'app-budget-form',
-	props: {
-		value: {
-			type: Object,
-			required: true
+	computed: {
+		...mapState(['formValues']),
+		values: {
+			get() {
+				return this.formValues;
+			},
+			set(values) {
+				this.$store.dispatch('setFormValues', values);
+			}
 		}
 	},
-	methods: {
-		emiting() {
-			const title = this.$refs.title.value;
-			const cost = +this.$refs.cost.value;
-
-			this.$emit('input', {title, cost});
-		},
-	}
 }
 </script>
