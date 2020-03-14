@@ -1,116 +1,123 @@
 <template>
-	<div id="app-budget">
-		<navbar />
-		<div class="container">
-			<router-view />
-		</div>
-	</div>
+  <div id="app-budget">
+    <navbar />
+    <div class="container">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar';
 export default {
-	name: 'App',
-	components: {
-		Navbar
-	}
-}
+  name: 'App',
+  components: {
+    Navbar
+  }
+};
 </script>
 
 <style>
 :root {
-	--navbar-bg: #555;
-	--main-bg: #fff;
-	--font-color: #666;
-	--btn-bg-color: #555;
+  --navbar-bg: #555;
+  --main-bg: #fff;
+  --font-color: #666;
+  --btn-bg-color: #555;
 }
-
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  overflow: hidden;
+}
 .mt-1 {
-	margin-top: 1rem;
+  margin-top: 1rem;
 }
 .mt-2 {
-	margin-top: 2rem;
+  margin-top: 2rem;
 }
 .mb-1 {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 .ml-1 {
-	margin-left: 1rem;
+  margin-left: 1rem;
 }
 .mr-1 {
-	margin-right: 1rem;
+  margin-right: 1rem;
 }
 .mx-1 {
-	margin-left: 1rem;
-	margin-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .my-1 {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .pt-1 {
-	padding-top: 1rem;
+  padding-top: 1rem;
 }
 .pb-1 {
-	padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 .pl-1 {
-	padding-left: 1rem;
+  padding-left: 1rem;
 }
 .pr-1 {
-	padding-right: 1rem;
+  padding-right: 1rem;
 }
 .px-1 {
-	padding-left: 1rem;
-	padding-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .py-1 {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .fz1 {
-	font-size: 1rem;
+  font-size: 1rem;
 }
 .fz2 {
-	font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 .df {
-	display: flex;
+  display: flex;
 }
 .jcsb {
-	justify-content: space-between;
+  justify-content: space-between;
 }
 .aic {
-	align-items: center;
+  align-items: center;
 }
 .tac {
-	text-align: center;
+  text-align: center;
 }
 .cp {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .absolute-top {
-	position: absolute;
-	top: 5rem;
-	right: 5rem;
+  position: absolute;
+  top: 5rem;
+  right: 5rem;
 }
 .absolute-top-left {
-	position: absolute;
-	top: 5rem;
-	left: 7rem;
+  position: absolute;
+  top: 5rem;
+  left: 7rem;
 }
 .app-budget {
-	background-color: var(--main-bg);
-	color: var(--font-color);
+  background-color: var(--main-bg);
+  color: var(--font-color);
 }
 
 .app-budget-nav {
-	background-color: var(--navbar-bg);
+  background-color: var(--navbar-bg);
 }
 
 .app-budget-btn {
-	background-color: var(--btn-bg-color);
+  background-color: var(--btn-bg-color);
 }
 </style>
